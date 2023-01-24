@@ -1,0 +1,8 @@
+#ifndef PROJECT_CONF_H_
+#define PROJECT_CONF_H_
+#define LOG_LEVEL_APP LOG_LEVEL_DBG
+#endif
+
+#ifndef UIP_CONF_BUFFER_SIZE
+#define UIP_CONF_BUFFER_SIZE 500
+#endif

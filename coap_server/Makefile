@@ -8,8 +8,6 @@ MODULES_REL += ./resources
 
 CONTIKI = ../../../..
 
-#include COAP implementation
-include $(CONTIKI)/Makefile.dir-variables
-MODULES += $(CONTIKI_NG_APP_LAYER_DIR)/coap
+include ../Makefile.common
 
 include $(CONTIKI)/Makefile.include

@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include "contiki.h"
 #include "coap-engine.h"
+#include "lib/sensors.h"
 
-//#include "dev/adc-zoul.h"
-//#include "dev/zoul-sensors.h"
+#include "dev/adc-zoul.h"
+#include "dev/zoul-sensors.h"
 
 //Log Configuration
 #include "sys/log.h"
@@ -21,8 +22,8 @@ PROCESS_THREAD(coap_server_process, ev, data)
 
     printf("CoAP server has started...");
 
-    //adc_zoul.configure(SENSORS_HW_INIT, ZOUL_SENSORS_ADC_ALL);
-    //printf("Loading sesnsors...");
+    adc_zoul.configure(SENSORS_HW_INIT, ZOUL_SENSORS_ADC_ALL);
+    printf("Loading sesnsors...");
 
     PROCESS_PAUSE();
 
@@ -31,7 +32,6 @@ PROCESS_THREAD(coap_server_process, ev, data)
     while(1)
     {
             PROCESS_WAIT_EVENT();
-            res_main.trigger();
     }
 
     PROCESS_END();

@@ -23,7 +23,7 @@ static void res_get_handler(coap_message_t *request, coap_message_t *response, u
 #if CONTIKI_TARGET_ZOUL
 
 
-    uint16_t motion_sensor_reading = adc_zoul.value(ZOUL_SENSORS_ADC1);
+    uint16_t motion_sensor_reading = adc_zoul.value(ZOUL_SENSORS_ADC2);
     printf("Motion sensor value = %u mV\n", motion_sensor_reading);
 
     uint16_t high_light_limit = 300;
@@ -35,7 +35,10 @@ static void res_get_handler(coap_message_t *request, coap_message_t *response, u
     uint16_t resistance = (1023 - light_sensor_reading) * 10 / light_sensor_reading;
 
     uint16_t action = 0;
-    if(resistance < high_light_limit)
+    if(motion_sensor_reading == 0) {
+        action = 1;
+    }
+    if(resistance < high_light_limit)  //High Light = Low resistance
     {
         action = 1;
     }
@@ -50,7 +53,7 @@ static void res_get_handler(coap_message_t *request, coap_message_t *response, u
 
     char message[COAP_MAX_CHUNK_SIZE] = "";
 
-    int result = snprintf(message, COAP_MAX_CHUNK_SIZE - 1, "Light sensor reading: %u mV, Resistance: %u Ohm. Action - %u", light_sensor_reading, resistance, action);
+    int result = snprintf(message, COAP_MAX_CHUNK_SIZE - 1, "\n\nMotion: %u\nLight: %u mV, \nResistance: %u Ohm. \nAction - %u", motion_sensor_reading,light_sensor_reading, resistance, action);
 
 
     if(result < 0)
